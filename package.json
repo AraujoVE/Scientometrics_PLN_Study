@@ -1,0 +1,15 @@
+{
+  "name": "icpnln",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AraujoVE",
+  "license": "MIT",
+  "dependencies": {
+    "node": "^16.6.0",
+    "selenium-webdriver": "^4.0.0-beta.4"
+  }
+}
