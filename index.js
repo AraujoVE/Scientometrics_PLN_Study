@@ -158,6 +158,10 @@ async function xPathWhileTrue(driver,funct,vars,waitTime=0,waitBetween=0.5,maxRe
 /////////////////////////////////////           Code           /////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/* 
+This code is used to get all the texts from all first level
+sub-areas of all science areas given by the wikipedia.
+*/
 async function writeFile(fileName,content){ //Write json file
     fs.writeFile(fileName,content, function (err) {
         if (err) {

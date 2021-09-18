@@ -1,6 +1,10 @@
 import textNormalization as tn
 import os
 
+'''
+Program to normalize all files of all areas and sub-areas and also save the full corpus of texts
+'''
+
 
 def addToCorpus(dir, corpusWords):
     files = [dir+"/"+i for i in os.listdir(dir) if i.split('.')[-1] == 'txt']

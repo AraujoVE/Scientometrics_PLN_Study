@@ -3,6 +3,13 @@ import networkx as nx
 from node2vec import Node2Vec
 from time import sleep
 
+'''
+Program to generate embeddings for all texts in each area.
+The node2vec is created after iterating through all texts in each sub-area
+of an area. One similarity matrix is created for each area. It's 
+passed to a node2vec model. The embeddings are then saved as .txt files.
+'''
+
 def node2Vec(graph,path):
     print("\tnode2vec start")
     node2vec = Node2Vec(graph, dimensions=128, walk_length=30, num_walks=200, workers=1)

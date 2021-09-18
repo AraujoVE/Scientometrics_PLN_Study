@@ -1,6 +1,10 @@
 import numpy as np
 from numpy.core.fromnumeric import amin
 
+'''
+PCA formulas already exists, this implementation is just for practice
+'''
+
 
 # needless formula, once we have np.cov
 '''
@@ -9,8 +13,6 @@ def covariance(array):
     return np.dot(np.transpose(array),array)/(np.shape(array)[0] - 1)
 '''
 
-#Ex.: Array 5x3, onde cada linha é uma sample e cada coluna um measurement 
-#PCA
 
 
 def pca(array,newDim=2):

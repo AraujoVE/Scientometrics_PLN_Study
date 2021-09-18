@@ -1,4 +1,7 @@
 import re
+'''
+Created to replace the values of a dictionary in a string
+'''
 
 def reReplaceDict(dictVal,text):
     formatted_parameters = dict((re.escape(k), v) for k, v in dictVal.items())
