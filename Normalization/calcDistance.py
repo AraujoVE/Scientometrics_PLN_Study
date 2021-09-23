@@ -63,7 +63,7 @@ def showAndSaveData(emb,keyStrPairs,dirs):
 
         # Set xtick to red if value is equal to np.nan, black otherwise
         for t in range(len(ticklabels)):
-            ticklabels[t].set_color('r' if heights[i][t] == np.nan else 'k')
+            ticklabels[t].set_color('r' if np.isnan(heights[i][t]) else 'b')
 
         # Add title
         plt.title(keyStrPairs[i])
