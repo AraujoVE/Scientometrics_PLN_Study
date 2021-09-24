@@ -2,6 +2,7 @@ import os
 import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import matplotlib.patches as mpatches
 
 '''
 The embeddings of just the chosen strings remain, and for each area
@@ -37,6 +38,7 @@ def reducedCossineSim(emb,keyStrs,emptyKeys):
         for j in range(i + 1, len(keyStrs)):
             if i in emptyKeys or j in emptyKeys:
                 redCosSim.append(np.nan)
+                print("nan value")
             else:
                 redCosSim.append(cosSim[i,j])
 
@@ -46,28 +48,39 @@ def getSimilarityEmbedding(path,keyStrs):
     emptyKeys, emb = getEmbedding(path,keyStrs)
     return reducedCossineSim(emb,keyStrs,emptyKeys)
 
-def showAndSaveData(emb,keyStrPairs,dirs):
-    barNames = dirs
+def showAndSaveData(emb,keyStrPairs,dirs,strPairsDiv):
+    barNames = [i.replace("_"," ") for i in dirs]
     y_pos = np.arange(len(barNames))
     heights = [[emb[dirs[j]][i] for j in range(len(dirs))] for i in range(len(keyStrPairs))]
 
     for i in range(len(keyStrPairs)):
         fig, ax = plt.subplots()
         # Create bars
-        ax.bar(y_pos, heights[i])
+        ax.bar(y_pos, heights[i],color="b")
 
         # Create names on the x-axis
         plt.xticks(y_pos, barNames)
 
-        ticklabels = plt.gca().get_xticklabels()
+        #ticklabels = plt.gca().get_xticklabels()
 
         # Set xtick to red if value is equal to np.nan, black otherwise
+        '''
         for t in range(len(ticklabels)):
             ticklabels[t].set_color('r' if np.isnan(heights[i][t]) else 'b')
+        '''
 
+
+        #blue_patch = mpatches.Patch(color='blue', label='Existent Similarity')
+        #red_patch = mpatches.Patch(color='red', label='Non-Existent Similarity')
+
+        #plt.legend(handles=[red_patch, blue_patch])# Set xtick to red if value is equal to np.nan, black otherwise
+
+        strs = keyStrPairs[i].split(strPairsDiv)
         # Add title
-        plt.title(keyStrPairs[i])
+        plt.title("Cossine similarity between "+strs[0]+" and "+strs[1])
+        ax.xaxis.set_tick_params(rotation=90)
 
+        plt.gcf().subplots_adjust(bottom=0.45)
         # Show graphic
         fig.savefig("./figs/img_"+str(keyStrPairs[i])+".png")
         plt.close(fig)
@@ -79,16 +92,17 @@ def main():
     keyStrsDistanceEmbeddings = {}
     keyStrs = [i for i in open("./ChoosenStrs/Normalized/specialStrs.txt","r").read().strip().split()]
     keyStrPairs = []
+    strPairsDiv = "_x_"
     for i in range(len(keyStrs)-1):
         for j in range(i+1,len(keyStrs)):
-            keyStrPairs.append(keyStrs[i]+"-"+keyStrs[j])
+            keyStrPairs.append(keyStrs[i]+strPairsDiv+keyStrs[j])
     
     dirs = [i for i in os.listdir("./Texts") if os.path.isdir("./Texts/"+i)]
 
     for i in range(len(dirs)):
         keyStrsDistanceEmbeddings[dirs[i]] = getSimilarityEmbedding("./Texts/"+dirs[i]+"/Normalized/node2vec.txt",keyStrs)
     
-    showAndSaveData(keyStrsDistanceEmbeddings,keyStrPairs,dirs)
+    showAndSaveData(keyStrsDistanceEmbeddings,keyStrPairs,dirs,strPairsDiv)
 
 
 

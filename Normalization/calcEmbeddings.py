@@ -1,7 +1,6 @@
 import os
 import networkx as nx
 from node2vec import Node2Vec
-from time import sleep
 
 '''
 Program to generate embeddings for all texts in each area.
@@ -51,7 +50,6 @@ def main():
         if dir not in embbededs:
             print(dir,", initialized")
             saveOccuranceArray("./Texts/"+dir+"/Normalized", corpus)
-            sleep(120)
         else:
             print(dir,", skipped")
 
